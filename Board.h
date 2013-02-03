@@ -63,6 +63,7 @@ extern "C" {
 #define DIO_6						Motherboard_DIO_6
 #define DIO_7						Motherboard_DIO_7
 #define USER_LED				    EKS_LM4F232_USER_LED
+#define MB_OUTPUT_NUM				MOTHERBOARD_OUTCOUNT
 #define Board_SDSPI                 EKS_LM4F232_SDSPI0
 #define Board_USBMSCHFatFs          EKS_LM4F232_USBMSCHFatFs0
 #define Board_USBDEVICE             EKS_LM4F232_USBDEVICE

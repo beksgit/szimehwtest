@@ -63,21 +63,24 @@ extern "C" {
 /* itt kell kezdeni!!!
  * Felsoroljuk a GPIO biteket, ez automatikusan számolja az EKS_LM4F232_GPIOCOUNT-ban , hogy hány ilyen bitünk van*/
 typedef enum EKS_LM4F232_GPIOName {
-    EKS_LM4F232_SW1_Up = 0,
-    EKS_LM4F232_SW2_Down,
-    EKS_LM4F232_SW3_Left,
-    EKS_LM4F232_SW4_Right,
-    EKS_LM4F232_SW5_Select,
-    EKS_LM4F232_USER_LED,
-    Motherboard_DIO_0,
-    Motherboard_DIO_1,
-    Motherboard_DIO_2,
-    Motherboard_DIO_3,
+	//outputs
+    EKS_LM4F232_USER_LED=0,
+
     Motherboard_DIO_4,
     Motherboard_DIO_5,
     Motherboard_DIO_6,
     Motherboard_DIO_7,
-
+    MOTHERBOARD_OUTCOUNT,
+    //inputs
+    EKS_LM4F232_SW1_Up= MOTHERBOARD_OUTCOUNT,
+    EKS_LM4F232_SW2_Down,
+    EKS_LM4F232_SW3_Left,
+    EKS_LM4F232_SW4_Right,
+    EKS_LM4F232_SW5_Select,
+    Motherboard_DIO_0,
+    Motherboard_DIO_1,
+    Motherboard_DIO_2,
+    Motherboard_DIO_3,
 
     EKS_LM4F232_GPIOCOUNT
 } EKS_LM4F232_GPIOName;

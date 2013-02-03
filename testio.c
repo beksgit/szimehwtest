@@ -100,7 +100,7 @@ Int main(Void)
     
 	int i;
 	/* First off second on .... */
-	 for (i=0;i<EKS_LM4F232_GPIOCOUNT-1;i++)
+	 for (i=0;i< MB_OUTPUT_NUM;i++)
 	 {
 		 GPIO_write(i, i%2);
 	 }
@@ -113,7 +113,7 @@ Void GPIOTicker(UArg arg0)
 	{
 	int i;
 	 /* Toggle IO ports */
-	 for (i=0;i<EKS_LM4F232_GPIOCOUNT-1;i++)
+	 for (i=0;i<MB_OUTPUT_NUM;i++)
 	 {
 		 GPIO_toggle(i);
 	 }

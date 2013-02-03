@@ -58,22 +58,25 @@ static Void EKS_LM4F232_setMaxSPIbitrate(SDSPI_Handle handle);
  */
 
 const GPIO_HWAttrs gpioHWAttrs[EKS_LM4F232_GPIOCOUNT] = {
-    {GPIO_PORTG_BASE, GPIO_PIN_2, GPIO_OUTPUT}, /*EKS_LM4F232_USER_LED */
+	//outputs
+	{GPIO_PORTG_BASE, GPIO_PIN_2, GPIO_OUTPUT},/*EKS_LM4F232_USER_LED */
+
     {GPIO_PORTN_BASE, GPIO_PIN_4, GPIO_OUTPUT}, /*Motherboard_DIO_4*/
     {GPIO_PORTN_BASE, GPIO_PIN_5, GPIO_OUTPUT}, /*Motherboard_DIO_5*/
     {GPIO_PORTN_BASE, GPIO_PIN_6, GPIO_OUTPUT}, /*Motherboard_DIO_6*/
     {GPIO_PORTN_BASE, GPIO_PIN_7, GPIO_OUTPUT}, /*Motherboard_DIO_7*/
 
-
+    //inputs
     {GPIO_PORTM_BASE, GPIO_PIN_0, GPIO_INPUT}, /* EKS_LM4F232_SW1_Up */
     {GPIO_PORTM_BASE, GPIO_PIN_1, GPIO_INPUT}, /* EKS_LM4F232_SW2 Down */
     {GPIO_PORTM_BASE, GPIO_PIN_2, GPIO_INPUT}, /* EKS_LM4F232_SW3 Left */
     {GPIO_PORTM_BASE, GPIO_PIN_3, GPIO_INPUT}, /* EKS_LM4F232_SW4 Right */
     {GPIO_PORTM_BASE, GPIO_PIN_4, GPIO_INPUT}, /* EKS_LM4F232_SW5 Select*/
-    {GPIO_PORTN_BASE, GPIO_PIN_0, GPIO_INPUT}, /*Motherboard_DIO_0 */
-    {GPIO_PORTN_BASE, GPIO_PIN_1, GPIO_INPUT}, /*Motherboard_DIO_1 */
-    {GPIO_PORTN_BASE, GPIO_PIN_2, GPIO_INPUT}, /*Motherboard_DIO_2*/
-    {GPIO_PORTN_BASE, GPIO_PIN_3, GPIO_INPUT}, /*Motherboard_DIO_3*/
+	{GPIO_PORTN_BASE, GPIO_PIN_0, GPIO_INPUT}, /*Motherboard_DIO_0 */
+	{GPIO_PORTN_BASE, GPIO_PIN_1, GPIO_INPUT}, /*Motherboard_DIO_1 */
+	{GPIO_PORTN_BASE, GPIO_PIN_2, GPIO_INPUT}, /*Motherboard_DIO_2*/
+	{GPIO_PORTN_BASE, GPIO_PIN_3, GPIO_INPUT}, /*Motherboard_DIO_3*/
+
 };
 
 const GPIO_Config GPIO_config =
@@ -210,17 +213,13 @@ Void EKS_LM4F232_initI2C(Void)
  */
 Void EKS_LM4F232_initGPIO(Void)
 {
-    /* Setup the OUTPUT GPIO pins used
-     *  */
-
+    /* Setup the OUTPUT GPIO pins used */
 
     GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_2); /* EKS_LM4F232_USER_LED */
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_4); /*Motherboard_DIO_4 */
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_5); /*Motherboard_DIO_5*/
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_6); /*Motherboard_DIO_6 */
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_7); /*Motherboard_DIO_7*/
-
-
     
     /* Setup the INPUT GPIO pins used */
 
