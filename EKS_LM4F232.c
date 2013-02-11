@@ -65,6 +65,11 @@ const GPIO_HWAttrs gpioHWAttrs[EKS_LM4F232_GPIOCOUNT] = {
     {GPIO_PORTN_BASE, GPIO_PIN_5, GPIO_OUTPUT}, /*Motherboard_DIO_5*/
     {GPIO_PORTN_BASE, GPIO_PIN_6, GPIO_OUTPUT}, /*Motherboard_DIO_6*/
     {GPIO_PORTN_BASE, GPIO_PIN_7, GPIO_OUTPUT}, /*Motherboard_DIO_7*/
+    {GPIO_PORTL_BASE, GPIO_PIN_1, GPIO_OUTPUT}, /*Motherboard_LED1*/
+    {GPIO_PORTL_BASE, GPIO_PIN_2, GPIO_OUTPUT}, /*Motherboard_LED2*/
+    {GPIO_PORTL_BASE, GPIO_PIN_3, GPIO_OUTPUT}, /*Motherboard_LED3*/
+    {GPIO_PORTL_BASE, GPIO_PIN_4, GPIO_OUTPUT}, /*Motherboard_LED4*/
+    {GPIO_PORTD_BASE, GPIO_PIN_5, GPIO_OUTPUT}, /*Motherboard_GPS_TRACE_TX*/
 
     //inputs
     {GPIO_PORTM_BASE, GPIO_PIN_0, GPIO_INPUT}, /* EKS_LM4F232_SW1_Up */
@@ -87,8 +92,13 @@ UART_Object uartObjects[EKS_LM4F232_UARTCOUNT];
 
 /* UART configuration structure */
 const UART_HWAttrs uartHWAttrs[EKS_LM4F232_UARTCOUNT] = {
-    {UART0_BASE, INT_UART0}, /* EKS_LM4F232_UART0 */
-    {UART1_BASE, INT_UART1}, /* EKS_LM4F232_UART1 */
+	{UART0_BASE, INT_UART0}, /* EKS_LM4F232_UART0 */
+	{UART1_BASE, INT_UART1}, /* EKS_LM4F232_UART1 */
+    {UART2_BASE, INT_UART2}, /* EKS_LM4F232_UART2 */
+    {UART3_BASE, INT_UART3}, /* EKS_LM4F232_UART3 */
+    {UART4_BASE, INT_UART4}, /* EKS_LM4F232_UART4 */
+    {UART5_BASE, INT_UART5}, /* EKS_LM4F232_UART5 */
+    {UART6_BASE, INT_UART6}, /* EKS_LM4F232_UART6 */
 };
 
 const UART_Config UART_config = 
@@ -220,6 +230,11 @@ Void EKS_LM4F232_initGPIO(Void)
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_5); /*Motherboard_DIO_5*/
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_6); /*Motherboard_DIO_6 */
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_7); /*Motherboard_DIO_7*/
+    GPIOPinTypeGPIOOutput(GPIO_PORTL_BASE, GPIO_PIN_1); /*Motherboard_LED1*/
+    GPIOPinTypeGPIOOutput(GPIO_PORTL_BASE, GPIO_PIN_2); /*Motherboard_LED2*/
+    GPIOPinTypeGPIOOutput(GPIO_PORTL_BASE, GPIO_PIN_3); /*Motherboard_LED3*/
+    GPIOPinTypeGPIOOutput(GPIO_PORTL_BASE, GPIO_PIN_4); /*Motherboard_LED4*/
+    GPIOPinTypeGPIOOutput(GPIO_PORTD_BASE, GPIO_PIN_5); /*Motherboard_GPS_TRACE_TX*/
     
     /* Setup the INPUT GPIO pins used */
 
@@ -259,7 +274,7 @@ Void EKS_LM4F232_initGPIO(Void)
     GPIO_write(Motherboard_DIO_4,EKS_LM4F232_PIN_OFF);
     GPIO_write(Motherboard_DIO_5,EKS_LM4F232_PIN_OFF);
     GPIO_write(Motherboard_DIO_6,EKS_LM4F232_PIN_OFF);
-    GPIO_write(Motherboard_DIO_7,EKS_LM4F232_PIN_OFF);
+    GPIO_write(Motherboard_DIO_7,EKS_LM4F232_PIN_ON); //A latch regiszter CLK jelet magasba kell tenni induláskor, hogy ne kattogjonak a relék
 }
 
 /*
@@ -302,15 +317,42 @@ Void EKS_LM4F232_initSDSPI(Void)
 Void EKS_LM4F232_initUART()
 {    
     /* Enable and configure the peripherals used by the uart. */
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
     GPIOPinConfigure(GPIO_PA0_U0RX);
     GPIOPinConfigure(GPIO_PA1_U0TX);
     GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART1);
+    GPIOPinConfigure(GPIO_PC4_U1RX);
+    GPIOPinConfigure(GPIO_PC5_U1TX);
+    GPIOPinTypeUART(GPIO_PORTC_BASE, GPIO_PIN_4 | GPIO_PIN_5);
     
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART1);
-    GPIOPinConfigure(GPIO_PB0_U1RX);
-    GPIOPinConfigure(GPIO_PB1_U1TX);
-    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART2);
+    GPIOPinConfigure(GPIO_PD6_U2RX);
+    GPIOPinConfigure(GPIO_PD7_U2TX);
+    GPIOPinTypeUART(GPIO_PORTD_BASE, GPIO_PIN_6 | GPIO_PIN_7);
+
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART3);
+    GPIOPinConfigure(GPIO_PC6_U3RX);
+    GPIOPinConfigure(GPIO_PC7_U3TX);
+    GPIOPinTypeUART(GPIO_PORTC_BASE, GPIO_PIN_6 | GPIO_PIN_7);
+
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART4);
+    GPIOPinConfigure(GPIO_PJ0_U4RX);
+    GPIOPinConfigure(GPIO_PJ1_U4TX);
+    GPIOPinTypeUART(GPIO_PORTJ_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART5);
+    GPIOPinConfigure(GPIO_PJ2_U5RX);
+    GPIOPinConfigure(GPIO_PJ3_U5TX);
+    GPIOPinTypeUART(GPIO_PORTJ_BASE, GPIO_PIN_2 | GPIO_PIN_3);
+
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART6);
+    GPIOPinConfigure(GPIO_PD4_U6RX);
+    GPIOPinConfigure(GPIO_PD5_U6TX);
+    GPIOPinTypeUART(GPIO_PORTD_BASE, GPIO_PIN_4 | GPIO_PIN_5);
+
+
 
     /* Initialize the UART driver */
     UART_init();

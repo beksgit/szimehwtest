@@ -7,7 +7,7 @@
         <srcFile name="package/cfg/testio_pem4f.c"/>
     </sources>
     <configscripts>
-        <srcFile name="C:/Users/Marci/Fejleszt/SZIMETOUR/szimetestio/testio.cfg"/>
+        <srcFile name="C:/Users/endre/workspace_v5_3/szimetestio/testio.cfg"/>
     </configscripts>
     <makefiles>
         <srcFile name="package.mak" src="package.bld"/>
@@ -43,7 +43,7 @@
         isPartial="false"
         xCfgScript="package/cfg/testio_pem4f.cfg"
         xCfgPrefix="package/cfg/testio_pem4f"
-        cfgScript="C:/Users/Marci/Fejleszt/SZIMETOUR/szimetestio/testio.cfg"
+        cfgScript="C:/Users/endre/workspace_v5_3/szimetestio/testio.cfg"
         cfgArgs="null"
         />
     </configurations>
@@ -55,7 +55,7 @@
         profile="release"
         xCfgScript="package/cfg/testio_pem4f.cfg"
         xCfgPrefix="package/cfg/testio_pem4f"
-        cfgScript="C:/Users/Marci/Fejleszt/SZIMETOUR/szimetestio/testio.cfg"
+        cfgScript="C:/Users/endre/workspace_v5_3/szimetestio/testio.cfg"
         cfgArgs="null"
         />
     </executables>

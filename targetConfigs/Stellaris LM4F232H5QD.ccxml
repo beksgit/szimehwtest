@@ -7,10 +7,10 @@
             <instance XML_version="1.2" href="drivers/stellaris_cortex_m4.xml" id="drivers" xml="stellaris_cortex_m4.xml" xmlpath="drivers"/>
             <platform XML_version="1.2" id="platform_0">
                 <instance XML_version="1.2" desc="Stellaris LM4F232H5QD" href="devices/lm4f232h5qd.xml" id="Stellaris LM4F232H5QD" xml="lm4f232h5qd.xml" xmlpath="devices"/>
-            <device HW_revision="1" XML_version="1.2" description="" id="Stellaris LM4F232H5QD" partnum="LM4F232H5QD">
+            <device HW_revision="1" XML_version="1.2" description="" id="Stellaris LM4F232H5QD" partnum="LM4F232H5QD" simulation="no">
                     <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
                         <subpath id="subpath_0">
-                            <cpu HW_revision="1.0" XML_version="1.2" description="Cortex M4 CPU" id="CORTEX_M4_0" isa="CORTEX_M4">
+                            <cpu HW_revision="1.0" XML_version="1.2" description="Cortex M4 CPU" deviceSim="false" id="CORTEX_M4_0" isa="CORTEX_M4">
                                 <property Type="stringfield" Value="10000" id="JTAG Frequency (Hz)"/>
                             </cpu>
                         </subpath>

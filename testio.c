@@ -46,6 +46,12 @@
 
 /* Board Header file */
 #include "Board.h"
+
+
+/* Globális változók a tesztelésehez */
+int Ledindex;
+int Internal_timer;
+
 /*
  *  ======== UART TASK ========
  */
@@ -62,8 +68,9 @@ Void UartTask(UArg a0, UArg a1)
     uartParams.readDataMode = UART_DATA_BINARY;
     uartParams.readReturnMode = UART_RETURN_FULL;
     uartParams.readEcho = UART_ECHO_OFF;
-    uart0 = UART_open(Board_UART0, &uartParams);
-    uart1 = UART_open(Board_UART1, &uartParams);
+    uart0 = UART_open(UART0, &uartParams);
+    uart1 = UART_open(UART1_GSM, &uartParams);
+
 
     if (uart0 == NULL) {
         System_abort("Error opening the UART0");
@@ -72,12 +79,12 @@ Void UartTask(UArg a0, UArg a1)
           System_abort("Error opening the UART1");
       }
 
-    UART_write(uart0, echoPrompt, sizeof(echoPrompt));
+    UART_write(uart1, echoPrompt, sizeof(echoPrompt));
 
     /* Loop forever echoing */
     while (TRUE) {
-        UART_read(uart0, &input, 1);
-        UART_write(uart0, &input, 1);
+        //UART_read(uart1, &input, 1);
+        UART_write(uart0, "U", 1);
     }
 }
 
@@ -86,7 +93,8 @@ Void UartTask(UArg a0, UArg a1)
  */
 Int main(Void)
 {       
-    /* Call board init functions. */
+Internal_timer=0;
+	/* Call board init functions. */
     Board_initGeneral();
     Board_initGPIO();
     // Board_initSDSPI();
@@ -104,19 +112,70 @@ Int main(Void)
 	 {
 		 GPIO_write(i, i%2);
 	 }
-
+	 Ledindex=LED1_Red; //kezdeti érték beállítása
     /* Start BIOS. Will not return from this call. */
     BIOS_start();
 }
 /* GPIO FLip-FLop */
 Void GPIOTicker(UArg arg0)
-	{
+ {
 	int i;
-	 /* Toggle IO ports */
-	 for (i=0;i<MB_OUTPUT_NUM;i++)
-	 {
-		 GPIO_toggle(i);
-	 }
-	}
+	++Internal_timer;
 
+if (Ledindex==LED1_Red)
+{
+GPIO_write(A0,PIN_OFF);
+GPIO_write(A1,PIN_OFF);
+}
+
+if (Ledindex==LED2_Green)
+{
+GPIO_write(A0,PIN_ON);
+GPIO_write(A1,PIN_OFF);
+}
+
+if (Ledindex==LED3_Blue)
+{
+GPIO_write(A0,PIN_OFF);
+GPIO_write(A1,PIN_ON);
+}
+
+if (Ledindex==LED4_Yellow)
+{
+GPIO_write(A0,PIN_ON);
+GPIO_write(A1,PIN_ON);
+}
+
+//Relé kattogtatás: a latch regiszter bit átírása
+if (Internal_timer==5000)
+{
+GPIO_toggle(DATA);
+GPIO_write(CLK,PIN_OFF);
+GPIO_write(CLK,PIN_ON);
+}
+	/* Toggle IO ports */
+	//for (i=0;i< MB_OUTPUT_NUM;i++)
+	//{
+
+	//GPIO_toggle(i);
+
+	// }
+ //Kb 1 másodpercenként ez történik:
+
+if (Internal_timer==10000)
+	{
+	Internal_timer=0;
+		if (GPIO_read(LEFT_Button)==0)
+			{
+			for (i=0;i< MB_OUTPUT_NUM;i++)
+				 {
+					 GPIO_write(i, PIN_OFF);
+				 }
+			GPIO_write(Ledindex, PIN_OFF);
+			++Ledindex;
+			if (Ledindex==MB_OUTPUT_NUM) Ledindex=LED1_Red;
+			}
+	GPIO_toggle(Ledindex);
+	}
+ }
 

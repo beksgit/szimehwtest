@@ -58,18 +58,27 @@ extern "C" {
 #define DIO_1						Motherboard_DIO_1
 #define DIO_2						Motherboard_DIO_2
 #define DIO_3						Motherboard_DIO_3
-#define DIO_4						Motherboard_DIO_4
-#define DIO_5						Motherboard_DIO_5
-#define DIO_6						Motherboard_DIO_6
-#define DIO_7						Motherboard_DIO_7
+#define A0							Motherboard_DIO_4
+#define A1							Motherboard_DIO_5
+#define DATA						Motherboard_DIO_6
+#define CLK							Motherboard_DIO_7
+#define LED1_Red					Motherboard_LED1
+#define LED2_Green					Motherboard_LED2
+#define LED3_Blue					Motherboard_LED3
+#define LED4_Yellow							Motherboard_LED4
 #define USER_LED				    EKS_LM4F232_USER_LED
 #define MB_OUTPUT_NUM				MOTHERBOARD_OUTCOUNT
 #define Board_SDSPI                 EKS_LM4F232_SDSPI0
 #define Board_USBMSCHFatFs          EKS_LM4F232_USBMSCHFatFs0
 #define Board_USBDEVICE             EKS_LM4F232_USBDEVICE
 #define Board_USBHOST               EKS_LM4F232_USBHOST
-#define Board_UART0                 EKS_LM4F232_UART0
-#define Board_UART1	                EKS_LM4F232_UART1
+#define UART0                       EKS_LM4F232_UART1
+#define UART1_GSM                   EKS_LM4F232_UART1
+#define UART2_GPS	                EKS_LM4F232_UART2
+#define UART3_ELM                   EKS_LM4F232_UART3
+#define UART4_BT	                EKS_LM4F232_UART4
+#define UART5_RS232                 EKS_LM4F232_UART5
+#define UART6_GPS_TRACE             EKS_LM4F232_UART6
 
 #ifdef __cplusplus
 }

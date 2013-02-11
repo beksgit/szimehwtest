@@ -11,7 +11,7 @@ var makeAssembly = false;
 var Executable = xdc.module('xdc.bld.Executable');
 
 var exeOpts = new Executable.Attrs({
-        cfgScript: 'C:/Users/Marci/Fejleszt/SZIMETOUR/szimetestio/testio.cfg',
+        cfgScript: 'C:/Users/endre/workspace_v5_3/szimetestio/testio.cfg',
         profile: 'release',
         cfgHome: 'xconfig_testio',
 });
@@ -47,8 +47,8 @@ else {
 }
 
 var thisObj = {
-    cfg:        'C:/Users/Marci/Fejleszt/SZIMETOUR/szimetestio/testio.cfg',
-    outputPath: 'C:/Users/Marci/Fejleszt/SZIMETOUR/szimetestio/.config/xconfig_testio',
+    cfg:        'C:/Users/endre/workspace_v5_3/szimetestio/testio.cfg',
+    outputPath: 'C:/Users/endre/workspace_v5_3/szimetestio/.config/xconfig_testio',
     exeName:    'testio' + suffix,
     exeIntName: 'testio' + suffix.replace('.', '_'),
     targ:       targ,

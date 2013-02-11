@@ -70,6 +70,12 @@ typedef enum EKS_LM4F232_GPIOName {
     Motherboard_DIO_5,
     Motherboard_DIO_6,
     Motherboard_DIO_7,
+    Motherboard_LED1,
+    Motherboard_LED2,
+    Motherboard_LED3,
+    Motherboard_LED4,
+    Motherboard_GPS_TRACE_TX,
+
     MOTHERBOARD_OUTCOUNT,
     //inputs
     EKS_LM4F232_SW1_Up= MOTHERBOARD_OUTCOUNT,
@@ -90,8 +96,13 @@ typedef enum EKS_LM4F232_GPIOName {
  *  @brief  Enum of UARTs on the EKS_LM4F232 dev board
  */
 typedef enum EKS_LM4F232_UARTName {
-    EKS_LM4F232_UART0 = 0,
-    EKS_LM4F232_UART1,
+	EKS_LM4F232_UART0 = 0,
+	EKS_LM4F232_UART1,
+    EKS_LM4F232_UART2,
+    EKS_LM4F232_UART3,
+    EKS_LM4F232_UART4,
+    EKS_LM4F232_UART5,
+    EKS_LM4F232_UART6,
     EKS_LM4F232_UARTCOUNT
 } EKS_LM4F232_UARTName;
 

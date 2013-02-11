@@ -3404,7 +3404,7 @@ ti_sysbios_family_arm_lm3_Timer_Object__ ti_sysbios_family_arm_lm3_Timer_Object_
         (xdc_Int)0x0,  /* id */
         ti_sysbios_interfaces_ITimer_RunMode_CONTINUOUS,  /* runMode */
         ti_sysbios_interfaces_ITimer_StartMode_AUTO,  /* startMode */
-        (xdc_UInt)0x9c40,  /* period */
+        (xdc_UInt)0xfa0,  /* period */
         ti_sysbios_interfaces_ITimer_PeriodType_COUNTS,  /* periodType */
         (xdc_UInt)0x23,  /* intNum */
         ((xdc_UArg)0),  /* arg */
@@ -4950,9 +4950,9 @@ ti_sysbios_knl_Clock_Object__ ti_sysbios_knl_Clock_Object__table__V[1] = {
             ((ti_sysbios_knl_Queue_Elem*)((void*)&ti_sysbios_knl_Clock_Module__state__V.Object_field_clockQ.elem)),  /* next */
             ((ti_sysbios_knl_Queue_Elem*)((void*)&ti_sysbios_knl_Clock_Module__state__V.Object_field_clockQ.elem)),  /* prev */
         },  /* elem */
-        (xdc_UInt32)0x32,  /* timeout */
-        (xdc_UInt32)0x32,  /* currTimeout */
-        (xdc_UInt32)0x32,  /* period */
+        (xdc_UInt32)0x1,  /* timeout */
+        (xdc_UInt32)0x1,  /* currTimeout */
+        (xdc_UInt32)0x1,  /* period */
         1,  /* active */
         ((xdc_Void(*)(xdc_UArg))((xdc_Fxn)GPIOTicker)),  /* fxn */
         ((xdc_UArg)0),  /* arg */
@@ -5057,7 +5057,7 @@ __FAR__ const CT__ti_sysbios_knl_Clock_tickMode ti_sysbios_knl_Clock_tickMode__C
 __FAR__ const CT__ti_sysbios_knl_Clock_timerId ti_sysbios_knl_Clock_timerId__C = (xdc_UInt)(-0x0 - 1);
 
 /* tickPeriod__C */
-__FAR__ const CT__ti_sysbios_knl_Clock_tickPeriod ti_sysbios_knl_Clock_tickPeriod__C = (xdc_UInt32)0x3e8;
+__FAR__ const CT__ti_sysbios_knl_Clock_tickPeriod ti_sysbios_knl_Clock_tickPeriod__C = (xdc_UInt32)0x64;
 
 
 /*
