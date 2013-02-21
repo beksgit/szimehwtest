@@ -74,7 +74,8 @@ typedef enum EKS_LM4F232_GPIOName {
     Motherboard_LED2,
     Motherboard_LED3,
     Motherboard_LED4,
-    Motherboard_GPS_TRACE_TX,
+    Motherboard_GSM_RTS,
+    Motherboard_GSM_DTR,
 
     MOTHERBOARD_OUTCOUNT,
     //inputs

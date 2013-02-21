@@ -57,19 +57,26 @@ int Internal_timer;
  */
 Void UartTask(UArg a0, UArg a1)
 {
-    Char input;
-    UART_Handle uart0,uart1;
+    Char input, inputbuf[10];
+    UART_Handle uart0,uart1,uart2,uart3,uart4,uart5,uart6;
     UART_Params uartParams;
     const Char echoPrompt[] = "\fEchoing characters:\r\n";
+    const Char testquery[] = "AT";
 
     /* Create a UART with data processing off. */
     UART_Params_init(&uartParams);
     uartParams.writeDataMode = UART_DATA_BINARY;
     uartParams.readDataMode = UART_DATA_BINARY;
-    uartParams.readReturnMode = UART_RETURN_FULL;
+ //   uartParams.readReturnMode = UART_RETURN_FULL;
     uartParams.readEcho = UART_ECHO_OFF;
+    uartParams.baudRate = 4800; //57600 4800
     uart0 = UART_open(UART0, &uartParams);
     uart1 = UART_open(UART1_GSM, &uartParams);
+    uart2 = UART_open(UART2_GPS, &uartParams);
+    uart3 = UART_open(UART3_ELM, &uartParams);
+    uart4 = UART_open(UART4_BT, &uartParams);
+    uart5 = UART_open(UART5_RS232, &uartParams);
+    uart6 = UART_open(UART6_GPS_TRACE, &uartParams);
 
 
     if (uart0 == NULL) {
@@ -78,13 +85,39 @@ Void UartTask(UArg a0, UArg a1)
     if (uart1 == NULL) {
           System_abort("Error opening the UART1");
       }
+    if (uart2 == NULL) {
+              System_abort("Error opening the UART2");
+          }
+    if (uart3 == NULL) {
+              System_abort("Error opening the UART3");
+          }
+    if (uart4 == NULL) {
+              System_abort("Error opening the UART4");
+          }
+    if (uart5 == NULL) {
+              System_abort("Error opening the UART5");
+          }
+    if (uart6 == NULL) {
+              System_abort("Error opening the UART6");
+          }
 
-    UART_write(uart1, echoPrompt, sizeof(echoPrompt));
+
+   //UART_read(uart0, &inputbuf, 10);
 
     /* Loop forever echoing */
     while (TRUE) {
-        //UART_read(uart1, &input, 1);
-        UART_write(uart0, "U", 1);
+    	UART_write(uart1, testquery, sizeof(testquery));
+    	//UART_read(uart0, &input, 1);
+    	//UART_read(uart6, &input, 1);
+      // UART_read(uart1, &input, 1);
+    	//UART_write(uart0, "U", 1);
+    	//UART_write(uart1, "U", 1);
+    	UART_write(uart2, "U", 1);
+      	UART_write(uart3, "U", 1);
+    	UART_write(uart4, "U", 1);
+    	UART_write(uart5, "U", 1);
+    	UART_write(uart6, "U", 1);
+
     }
 }
 
@@ -108,19 +141,22 @@ Internal_timer=0;
     
 	int i;
 	/* First off second on .... */
-	 for (i=0;i< MB_OUTPUT_NUM;i++)
-	 {
-		 GPIO_write(i, i%2);
-	 }
+	 //for (i=0;i< MB_OUTPUT_NUM;i++)
+	 //{
+		// GPIO_write(i, i%2);
+	 //}
 	 Ledindex=LED1_Red; //kezdeti érték beállítása
     /* Start BIOS. Will not return from this call. */
     BIOS_start();
 }
 /* GPIO FLip-FLop */
 Void GPIOTicker(UArg arg0)
- {
-	int i;
+
+
+{
+ int i;
 	++Internal_timer;
+GPIO_toggle(USER_LED);
 
 if (Ledindex==LED1_Red)
 {
@@ -147,7 +183,7 @@ GPIO_write(A1,PIN_ON);
 }
 
 //Relé kattogtatás: a latch regiszter bit átírása
-if (Internal_timer==5000)
+if (Internal_timer==10)
 {
 GPIO_toggle(DATA);
 GPIO_write(CLK,PIN_OFF);
@@ -160,9 +196,10 @@ GPIO_write(CLK,PIN_ON);
 	//GPIO_toggle(i);
 
 	// }
- //Kb 1 másodpercenként ez történik:
+ //Kb 1 másodpercenként ez történik:*/
 
-if (Internal_timer==10000)
+
+if (Internal_timer==100)
 	{
 	Internal_timer=0;
 		if (GPIO_read(LEFT_Button)==0)

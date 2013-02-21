@@ -72,7 +72,7 @@ extern "C" {
 #define Board_USBMSCHFatFs          EKS_LM4F232_USBMSCHFatFs0
 #define Board_USBDEVICE             EKS_LM4F232_USBDEVICE
 #define Board_USBHOST               EKS_LM4F232_USBHOST
-#define UART0                       EKS_LM4F232_UART1
+#define UART0                       EKS_LM4F232_UART0
 #define UART1_GSM                   EKS_LM4F232_UART1
 #define UART2_GPS	                EKS_LM4F232_UART2
 #define UART3_ELM                   EKS_LM4F232_UART3

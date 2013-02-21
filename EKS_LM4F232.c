@@ -47,6 +47,7 @@
 #include <ti/drivers/UART.h>
 #include <ti/drivers/SDSPI.h>
 #include <ti/drivers/USBMSCHFatFs.h>
+#include "inc/lm4f232h5qd.h"
 
 #include "EKS_LM4F232.h"
 
@@ -69,7 +70,8 @@ const GPIO_HWAttrs gpioHWAttrs[EKS_LM4F232_GPIOCOUNT] = {
     {GPIO_PORTL_BASE, GPIO_PIN_2, GPIO_OUTPUT}, /*Motherboard_LED2*/
     {GPIO_PORTL_BASE, GPIO_PIN_3, GPIO_OUTPUT}, /*Motherboard_LED3*/
     {GPIO_PORTL_BASE, GPIO_PIN_4, GPIO_OUTPUT}, /*Motherboard_LED4*/
-    {GPIO_PORTD_BASE, GPIO_PIN_5, GPIO_OUTPUT}, /*Motherboard_GPS_TRACE_TX*/
+    {GPIO_PORTF_BASE, GPIO_PIN_0, GPIO_OUTPUT}, /*Motherboard_GSM_RTS*/
+    {GPIO_PORTF_BASE, GPIO_PIN_4, GPIO_OUTPUT}, /*Motherboard_GSM_DTR*/
 
     //inputs
     {GPIO_PORTM_BASE, GPIO_PIN_0, GPIO_INPUT}, /* EKS_LM4F232_SW1_Up */
@@ -234,7 +236,9 @@ Void EKS_LM4F232_initGPIO(Void)
     GPIOPinTypeGPIOOutput(GPIO_PORTL_BASE, GPIO_PIN_2); /*Motherboard_LED2*/
     GPIOPinTypeGPIOOutput(GPIO_PORTL_BASE, GPIO_PIN_3); /*Motherboard_LED3*/
     GPIOPinTypeGPIOOutput(GPIO_PORTL_BASE, GPIO_PIN_4); /*Motherboard_LED4*/
-    GPIOPinTypeGPIOOutput(GPIO_PORTD_BASE, GPIO_PIN_5); /*Motherboard_GPS_TRACE_TX*/
+    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0); /*Motherboard_GSM_RTS*/
+    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_4); /*Motherboard_GSM_DTR*/
+
     
     /* Setup the INPUT GPIO pins used */
 
@@ -275,6 +279,9 @@ Void EKS_LM4F232_initGPIO(Void)
     GPIO_write(Motherboard_DIO_5,EKS_LM4F232_PIN_OFF);
     GPIO_write(Motherboard_DIO_6,EKS_LM4F232_PIN_OFF);
     GPIO_write(Motherboard_DIO_7,EKS_LM4F232_PIN_ON); //A latch regiszter CLK jelet magasba kell tenni induláskor, hogy ne kattogjonak a relék
+    GPIO_write(Motherboard_GSM_RTS,EKS_LM4F232_PIN_ON); //Két handshake jel megasba tétele
+    GPIO_write(Motherboard_GSM_DTR,EKS_LM4F232_PIN_ON);
+
 }
 
 /*
@@ -327,6 +334,9 @@ Void EKS_LM4F232_initUART()
     GPIOPinConfigure(GPIO_PC5_U1TX);
     GPIOPinTypeUART(GPIO_PORTC_BASE, GPIO_PIN_4 | GPIO_PIN_5);
     
+    //SPeciális loclkolt PIN PD7 (NMI) Unlock
+    GPIO_PORTD_LOCK_R= GPIO_LOCK_KEY ;
+    GPIO_PORTD_CR_R = 0xFF;
     SysCtlPeripheralEnable(SYSCTL_PERIPH_UART2);
     GPIOPinConfigure(GPIO_PD6_U2RX);
     GPIOPinConfigure(GPIO_PD7_U2TX);
